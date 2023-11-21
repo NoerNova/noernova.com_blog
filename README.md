@@ -1,1 +1,1 @@
-Blog posts from noernova.com
+Blog posts for [noernova.com](https://noernova.com)
