@@ -14,14 +14,17 @@ description: တႃႇတေႁဵတ်းႁႂ်ႈ gpt2 generate ဢွၵ�
 - [ႁဵတ်းသင်လႄႈလႆႈ Fine-tune ဢဝ် model ပိူၼ်ႈ၊ သင်ဢမ်ႇ train တႄႇငဝ်ႈတေႃႇပၢႆဢဝ်ႁင်းၵူၺ်း?](#ႁဵတ်းသင်လႄႈလႆႈ-fine-tune-ဢဝ်-model-ပိူၼ်ႈ-သင်ဢမ်ႇ-train-တႄႇငဝ်ႈတေႃႇပၢႆဢဝ်ႁင်းၵူၺ်း)
 - [Prerequisites](#prerequisites)
 - [Step-by-Step](#step-by-step)
-  - [Step 0. Mount google drive and login to huggingface hub](#step-0-mount-google-drive-and-login-to-huggingface-hub)
-  - [Step 1.  ၵဵပ်းႁွမ်ၶေႃႈမုၼ် Corpus လိၵ်ႈတႆး လႄႈ သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း Data Cleaning](#step-1--ၵဵပ်းႁွမ်ၶေႃႈမုၼ်-corpus-လိၵ်ႈတႆး-လႄႈ-သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း-data-cleaning)
-  - [Step 2. Tokenization](#step-2-tokenization)
-  - [Step 3. Data Preprocessing](#step-3-data-preprocessing)
-  - [Step 4. Model Setup and Optimizer](#step-4-model-setup-and-optimizer)
-  - [Step 5: Fine-tuning](#step-5-fine-tuning)
-  - [Model Test (Top-P sampling)](#model-test-top-p-sampling)
+	- [Step 0. Mount google drive and login to huggingface hub](#step-0-mount-google-drive-and-login-to-huggingface-hub)
+	- [Step 1.  ၵဵပ်းႁွမ်ၶေႃႈမုၼ် Corpus လိၵ်ႈတႆး လႄႈ သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း Data Cleaning](#step-1--ၵဵပ်းႁွမ်ၶေႃႈမုၼ်-corpus-လိၵ်ႈတႆး-လႄႈ-သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း-data-cleaning)
+	- [Step 2. Tokenization](#step-2-tokenization)
+	- [Step 3. Data Preprocessing](#step-3-data-preprocessing)
+	- [Step 4. Model Setup and Optimizer](#step-4-model-setup-and-optimizer)
+	- [Step 5: Fine-tuning](#step-5-fine-tuning)
+	- [Model Test (Top-P sampling)](#model-test-top-p-sampling)
 - [Conclusion](#conclusion)
+		- [**Link**](#link)
+		- [**Source Code**](#source-code)
+		- [**Dataset**](#dataset)
 
 
 ## Introduction
@@ -34,15 +37,15 @@ GPT-2 Large Language Model ပဵၼ် Generative AI ဢၼ်ၶူင်သ�
 
 **ယိူင်းမၢႆထီႉ 1 ၶွင် GPT-2 တႃႇႁႂ်ႈမၼ်း generate text ဢွၵ်ႇမႃး ဢိင်ၼိူဝ်ၶေႃႈၵႂၢမ်း prompt ဢၼ်ပၼ် input ၶဝ်ႈ။**
 
-တႃႇတေႁဵတ်းႁႂ်ႈ Computer ဢမ်ႇၼၼ် AI ပွင်ႇၸႂ် context လိၵ်ႈသေ ၶိုၼ်းၶူင်တႅမ်လိၵ်ႈသိုပ်ႈတေႃႇၵၼ်ၵႂႃႇၼၼ်ႉ မိူဝ်ႈၵွၼ်ႇယၢမ်းၸႂ်ႉတိုဝ်းလွၵ်းလၢႆးတၢင်းၼမ် ***သိုပ်ႇလူ - [## AI/Computer ႁဵတ်းၸိူင်ႉႁိုဝ်သေၸင်ႇပွင်ႇၵႂၢမ်းၵူၼ်းလႆႈ](https://www.noernova.com/blog/markov-chain-language-model)*
+တႃႇတေႁဵတ်းႁႂ်ႈ Computer ဢမ်ႇၼၼ် AI ပွင်ႇၸႂ် context လိၵ်ႈသေ ၶိုၼ်းၶူင်တႅမ်လိၵ်ႈသိုပ်ႈတေႃႇၵၼ်ၵႂႃႇၼၼ်ႉ မိူဝ်ႈၵွၼ်ႇယၢမ်းၸႂ်ႉတိုဝ်းလွၵ်းလၢႆးတၢင်းၼမ် **သိုပ်ႇလူ - [AI/Computer ႁဵတ်းၸိူင်ႉႁိုဝ်သေၸင်ႇပွင်ႇၵႂၢမ်းၵူၼ်းလႆႈ](https://www.noernova.com/blog/markov-chain-language-model)**
 
 probabilistic/statistic model လွၵ်းလၢႆးၵဝ်ႇၸိူဝ်းၼၼ်ႉမီးပၼ်ႁႃမႃး ပေႃးဝႃႈၶေႃႈၵႂၢမ်းထႅဝ်လိၵ်ႈမၼ်းယၢဝ်းမႃးတိၵ်းတိၵ်း မၼ်းၸၢင်ႈလိုမ်းၼႃႈလိုမ်းလင် လႄႈၸႂ်ႉ resource တွၼ်ႈတႃႇတေတွင်း context ၶေႃႈၵႂၢမ်းတင်းၼမ်။
 
-Transformer technique ၸင်ႇၵိူတ်ႇပဵၼ်မႃး တႃႇၵႄႈပၼ်ႁႃဢၼ်ထူပ်းယူႇၸိူဝ်းၼၼ်ႉ ***သိုပ်ႇလူ - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)*
+Transformer technique ၸင်ႇၵိူတ်ႇပဵၼ်မႃး တႃႇၵႄႈပၼ်ႁႃဢၼ်ထူပ်းယူႇၸိူဝ်းၼၼ်ႉ **သိုပ်ႇလူ - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)**
 
 GPT-2 ၵေႃႈပဵၼ် transformer-base။
 
-> _GPT-2 is a large transformer-based language model with 1.5 billion parameters, trained on a dataset of 8 million web pages. GPT-2 is trained with a simple objective: predict the next word, given all of the previous words within some text. The diversity of the dataset causes this simple goal to contain naturally occurring demonstrations of many tasks across diverse domains. GPT-2 is a direct scale-up of GPT, with more than 10X the parameters and trained on more than 10X the amount of data._
+> GPT-2 is a large transformer-based language model with 1.5 billion parameters, trained on a dataset of 8 million web pages. GPT-2 is trained with a simple objective: predict the next word, given all of the previous words within some text. The diversity of the dataset causes this simple goal to contain naturally occurring demonstrations of many tasks across diverse domains. GPT-2 is a direct scale-up of GPT, with more than 10X the parameters and trained on more than 10X the amount of data.
 
 ## ႁဵတ်းသင်လႄႈလႆႈ Fine-tune ဢဝ် model ပိူၼ်ႈ၊ သင်ဢမ်ႇ train တႄႇငဝ်ႈတေႃႇပၢႆဢဝ်ႁင်းၵူၺ်း?
 GPT-2, GPT-3 Large Language model ၸိူဝ်းၼႆႉ တေလႆႈၸႂ်ႉႁႅင်း Computer/GPU/TPU ၼမ်ႉတႄႉတႄႉဝႃႈဝႃႈသေၸင်ႇၵွႆႈ train ပဵၼ် AI model ဢွၵ်ႇမႃးလႆႈ။
@@ -70,7 +73,7 @@ GPT-2 ၸႂ်ႉၶၢဝ်းယၢမ်း GPU 100,000 ၸူဝ်ႈမ�
 
 ![google colab pro {caption: google colab pro pricing}](/assets/fine-tuning-gpt2-for-shan-language/Screenshot-2567-01-10-at-11.08.27.png)
 
-_သိုဝ်ႉ Pro သေတႃႉၵေႃႈ လႆႈၸႂ်ႉ A100 ဢမ်ႇပူၼ်ႉသေ သၢမ်ပွၵ်ႈ lol_
+***သိုဝ်ႉ Pro သေတႃႉၵေႃႈ လႆႈၸႂ်ႉ A100 ဢမ်ႇပူၼ်ႉသေ သၢမ်ပွၵ်ႈ lol***
 
 ## Step-by-Step
 ### Step 0. Mount google drive and login to huggingface hub
@@ -123,13 +126,13 @@ GPT-2 model တေၵတ်ႉၶႅၼ်ႇ ၶိုၵ်ႉၶႅမ်ႉ�
 - [ssppssa.org 2.8MB](https://ssppssa.org/) (ပႃႇတီႇမႂ်ႇသုင်ၸိုင်ႈတႆး)
 - [shan.shanhumanrights.org 2.6MB](https://shan.shanhumanrights.org/) (ၵဝ်ႉငဝ်ႈသုၼ်ႇလႆႈၵူၼ်း)
 
-_ပေႃးဝႃႈမီးဝဵပ်ႉသၢႆႉဢၼ်ၸႂ်ႉတိုဝ်းလိၵ်ႈတႆး ၼွၵ်ႈလိူဝ်ၼႆႉထႅင်ႈၸိုင် ၸွႆႈသူင်ႇပၼ်ၽွင်ႈၶႃႈ_
+***ပေႃးဝႃႈမီးဝဵပ်ႉသၢႆႉဢၼ်ၸႂ်ႉတိုဝ်းလိၵ်ႈတႆး ၼွၵ်ႈလိူဝ်ၼႆႉထႅင်ႈၸိုင် ၸွႆႈသူင်ႇပၼ်ၽွင်ႈၶႃႈ***
 
 ၶေႃႈမုၼ်းဢၼ်လႆႈမႃးၸိူဝ်းၼႆႉပဵၼ်ၶေႃႈမုၼ်းဢၼ်ပိုၼ်ၽႄႈ api ဝႆႉတင်းမူတ်း ဝၢႆးသေ ၸၼ်ၶေႃႈမုၼ်း (.csv) ဝႆႉယဝ်ႉ လူဝ်ႇႁဵတ်း data cleaning ဢဝ်ဢွၵ်ႇပႅတ်ႈတူဝ်ဢၼ်ဢမ်ႇၸႂ်ႈတူဝ်လိၵ်ႈ မိူၼ်ၼင်ႇ တူဝ် "\n" "\t" လႄႈ HTML tags ၸိူဝ်းၼႆႉ။
 
 ![data cleaning {caption: ၶၵ်ႉတွၼ်ႈၵၢၼ်သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း}](/assets/fine-tuning-gpt2-for-shan-language/Screenshot-2567-01-10-at-14.09.23.png)
 
-_clean .csv data_
+***clean .csv data***
 ```python
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -452,13 +455,13 @@ for i, sample_output in enumerate(sample_outputs):
 3. ႁႅင်း GPU ဢၼ်ၸႂ်ႉလႆႈၼၼ်ႉ မီးၶၢဝ်းယၢမ်းပၼ်ၸႂ်ႉဢေႇၼႃႇလႄႈ parameters ဢၼ်ၸႂ်ႉသွၼ် model လႆႈလူတ်းယွမ်းဝႆႉတင်းၼမ်ႉ ႁဵတ်းႁႂ်ႈ model ဢမ်ႇလႆႈႁဵၼ်းႁူဝ်ယွႆႈၶႅမ်ႉလီ
 
 မိူဝ်းၼႃႈၶၢဝ်းယၢဝ်း တႃႇတေသိုပ်ႈႁဵတ်းႁႂ်ႈၸႂ်ႉ AI model မိူၼ်ၼင်ႇ LLM, Generative AI တွၼ်ႈတႃႇလိၵ်ႈတႆးလႆႈလီလီၼၼ်ႉယင်းလူဝ်ႇတၢင်းၸွႆႈထႅမ်ႁူမ်ႈမိုဝ်းၵၼ်လၢႆပႃႈလၢႆၾၢႆႇမိူၼ်ၼင်ႇ
-_**ႁႅင်းၶေႃႈမုၼ်းလိၵ်ႈတႆး**_ _**ႁႅင်းငိုၼ်းတွင်းတႃႇၸႂ်ႉ**_ train ၸိူဝ်းၼႆႉယူႇၶႃႈ။
+***ႁႅင်းၶေႃႈမုၼ်းလိၵ်ႈတႆး*** ***ႁႅင်းငိုၼ်းတွင်းတႃႇၸႂ်ႉ*** train ၸိူဝ်းၼႆႉယူႇၶႃႈ။
 
-Link
+#### **Link**
 - [shn-gpt2](https://huggingface.co/NorHsangPha/shn_gpt2)
 - [Fine-tune a pretrained model - huggingface docs](https://huggingface.co/docs/transformers/v4.18.0/en/training)
 
-Source Code
+#### **Source Code**
 1. [Shan GPT-2 Fine-tuning Google Colab](https://colab.research.google.com/drive/1DPJp0WKY-MVWznJTIOWPgzFaUjxfa_zM?usp=sharing)
 2. [BPE Tokenizer training](https://colab.research.google.com/drive/1of3hghxLQ2UtwFfRU6AAZKrGNJlOAu3D?usp=sharing)
 3. [BPE extended tokenizer training](https://colab.research.google.com/drive/1yKgJLT0EP1WhjvHqA_9dMLPqg_ERzF6N)
@@ -466,5 +469,5 @@ Source Code
 5. [Shan tokenizer](https://colab.research.google.com/drive/1U5OuaF8sM72vZszGyMqOo55GDzGnR1Gp?usp=sharing)
 6. [Shan Google Sentencepiece tokenizer](https://colab.research.google.com/drive/1UczcN4KUD0USL9iSLIombIF-eem0Ux61#scrollTo=XiX6zV4-H15X)
 
-Dataset
-[Shan Data Collections](https://github.com/NoerNova/shan-data-collection)
+#### **Dataset**
+- [Shan Data Collections](https://github.com/NoerNova/shan-data-collection)
