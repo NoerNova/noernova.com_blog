@@ -1,7 +1,7 @@
 ---
 tags: ["gpt-2" ,"shan" ,"LLM" ,"generative-ai"]
 date: Jan 12, 2024
-title: Fine-Tuning GPT-2 Large Language Model တွၼ်ႈတႃႇလိၵ်ႈတႆ
+title: Fine-Tuning GPT-2 Large Language Model တွၼ်ႈတႃႇလိၵ်ႈတႆး
 subtitle: LLM generative model for Shan language
 image: https://i.pinimg.com/564x/6f/2b/6b/6f2b6b2b733e936abde09cd24a9765d1.jpg
 link: blog/fine-tuning-gpt2-for-shan-language
