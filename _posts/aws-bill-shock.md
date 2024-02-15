@@ -7,7 +7,7 @@ tags:
 date: February 15, 2024
 title: AWS (Amazon Web Service) BILL SHOCK!
 subtitle: เจอ bill shock จาก AWS ไป 20,000 ขอคืนเงินได้นะ
-image: assets/aws-bill-shock/AWS.jpg
+image: https://i.pinimg.com/564x/54/b0/06/54b00642c4f6d37b725781d0da05939b.jpg
 link: blog/aws-bill-shock
 description: ลองขอคืนเงินจาก AWS service ที่เราพลาดเอง
 ---
