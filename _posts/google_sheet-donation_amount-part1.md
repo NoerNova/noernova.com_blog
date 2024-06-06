@@ -75,7 +75,7 @@ _google-sheet_
 หาไปซักผ้า เอ้ยย ซักผัก เอ้ยยย สักพัก เอ้ยยย ถูกแล้ววว!!!
 กำลังจะถอดใจไปฟิกแบบแม่นวลแล้ว เจอเว็บนี้มา ฟรีแบบมีเงื่อนไข แต่รองรับ MMK โอเคใช้ไปก่อน currencyconverterapi.com ต้องขอ Free API Key
 
-**Code เล้ยยย**
+_**Code เล้ยยย**_
 
 ![Code ใน Script Editor {caption: Code ใน Script Editor}](https://cdn-images-1.medium.com/max/1600/1*djBUQXA-M1Ganu63YYAswA.png)
 
@@ -97,7 +97,7 @@ var sgd = api["SGD_MMK"];
 // จ๊าดพม่าไม่ต้องเพราะไม่ต้องแลกเปลี่ยน
 ```
 
-**ทำงานกับ Sheet**
+_**ทำงานกับ Sheet**_
 
 ```javascript
 var openSpreadSheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -118,7 +118,7 @@ var SgDollar = sheet.getRange("F2").getValue();
 // ในที่นี้ผมเรียกตามตำแหน่ง cell เลยง่ายดี
 ```
 
-**สมการแลกเปลี่ยน**
+_**สมการแลกเปลี่ยน**_
 
 ```javascript
 var kyat =
@@ -132,7 +132,7 @@ var kyat =
 // exchange = money x exchangeRate
 ```
 
-**set ค่า**
+_**set ค่า**_
 
 ```javascript
 sheet.getRange("I2").setValue(kyat);
@@ -156,7 +156,7 @@ run เสร็จแล้วกลับไปดูหน้า sheet ขอ
 
 ![Grand total ได้รับการอัพเดทแล้ว {caption: Grand total ได้รับการอัพเดทแล้ว}](https://cdn-images-1.medium.com/max/1600/1*sPAF3-86L7oJaU9uBlYY6Q.png)
 
-โอเช **Grand total** มาแล้ว ช่อง **Percent count to Landing** ก็ใช้ท่า excel ธรรมดา 
+โอเช **Grand total** มาแล้ว ช่อง **Percent count to Landing** ก็ใช้ท่า excel ธรรมดา
 $$ =(I2/J2)*100 $$
 จบในส่วนของ Google App Script
 

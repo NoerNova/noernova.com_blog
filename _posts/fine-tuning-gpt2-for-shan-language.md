@@ -9,23 +9,22 @@ description: တႃႇတေႁဵတ်းႁႂ်ႈ gpt2 generate ဢွၵ�
 ---
 
 ## Contents
-- [Contents](#contents)
+
 - [Introduction](#introduction)
 - [ႁဵတ်းသင်လႄႈလႆႈ Fine-tune ဢဝ် model ပိူၼ်ႈ၊ သင်ဢမ်ႇ train တႄႇငဝ်ႈတေႃႇပၢႆဢဝ်ႁင်းၵူၺ်း?](#ႁဵတ်းသင်လႄႈလႆႈ-fine-tune-ဢဝ်-model-ပိူၼ်ႈ-သင်ဢမ်ႇ-train-တႄႇငဝ်ႈတေႃႇပၢႆဢဝ်ႁင်းၵူၺ်း)
 - [Prerequisites](#prerequisites)
 - [Step-by-Step](#step-by-step)
-	- [Step 0. Mount google drive and login to huggingface hub](#step-0-mount-google-drive-and-login-to-huggingface-hub)
-	- [Step 1.  ၵဵပ်းႁွမ်ၶေႃႈမုၼ် Corpus လိၵ်ႈတႆး လႄႈ သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း Data Cleaning](#step-1--ၵဵပ်းႁွမ်ၶေႃႈမုၼ်-corpus-လိၵ်ႈတႆး-လႄႈ-သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း-data-cleaning)
-	- [Step 2. Tokenization](#step-2-tokenization)
-	- [Step 3. Data Preprocessing](#step-3-data-preprocessing)
-	- [Step 4. Model Setup and Optimizer](#step-4-model-setup-and-optimizer)
-	- [Step 5: Fine-tuning](#step-5-fine-tuning)
-	- [Model Test (Top-P sampling)](#model-test-top-p-sampling)
+  - [Step 0. Mount google drive and login to huggingface hub](#step-0-mount-google-drive-and-login-to-huggingface-hub)
+  - [Step 1.  ၵဵပ်းႁွမ်ၶေႃႈမုၼ် Corpus လိၵ်ႈတႆး လႄႈ သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း Data Cleaning](#step-1--ၵဵပ်းႁွမ်ၶေႃႈမုၼ်-corpus-လိၵ်ႈတႆး-လႄႈ-သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း-data-cleaning)
+  - [Step 2. Tokenization](#step-2-tokenization)
+  - [Step 3. Data Preprocessing](#step-3-data-preprocessing)
+  - [Step 4. Model Setup and Optimizer](#step-4-model-setup-and-optimizer)
+  - [Step 5: Fine-tuning](#step-5-fine-tuning)
+  - [Model Test (Top-P sampling)](#model-test-top-p-sampling)
 - [Conclusion](#conclusion)
-		- [**Link**](#link)
-		- [**Source Code**](#source-code)
-		- [**Dataset**](#dataset)
-
+  - [Link](#link)
+  - [Source Code](#source-code)
+  - [Dataset](#dataset)
 
 ## Introduction
 
@@ -35,7 +34,7 @@ GPT-2 Large Language Model ပဵၼ် Generative AI ဢၼ်ၶူင်သ�
 
 ၵူၺ်းၵႃႈ ၼႂ်းၶေႃႈမုၼ်းဢၼ်ၸႂ်ႉ train ၸိူဝ်းၼၼ်ႉပဵၼ်ၶေႃႈမုၼ်းၽႃႇသႃႇ english လၢႆလၢႆ ၼႂ်းပွင်ႈၵႂၢမ်းႁူဝ်ၼႆႉၸိုင်တေမႃးဢွၼ်ၸၢမ်းတူၺ်းလွၵ်းလၢႆးၸႂ်ႉၶေႃႈမုၼ်းၽႃႇသႃႇတႆးသေ fine-tune gpt-2 ႁႂ်ႈမၼ်း generate ၽႃႇသႃႇတႆးလႆႈ။
 
-**ယိူင်းမၢႆထီႉ 1 ၶွင် GPT-2 တႃႇႁႂ်ႈမၼ်း generate text ဢွၵ်ႇမႃး ဢိင်ၼိူဝ်ၶေႃႈၵႂၢမ်း prompt ဢၼ်ပၼ် input ၶဝ်ႈ။**
+***ယိူင်းမၢႆထီႉ 1 ၶွင် GPT-2 တႃႇႁႂ်ႈမၼ်း generate text ဢွၵ်ႇမႃး ဢိင်ၼိူဝ်ၶေႃႈၵႂၢမ်း prompt ဢၼ်ပၼ် input ၶဝ်ႈ။***
 
 တႃႇတေႁဵတ်းႁႂ်ႈ Computer ဢမ်ႇၼၼ် AI ပွင်ႇၸႂ် context လိၵ်ႈသေ ၶိုၼ်းၶူင်တႅမ်လိၵ်ႈသိုပ်ႈတေႃႇၵၼ်ၵႂႃႇၼၼ်ႉ မိူဝ်ႈၵွၼ်ႇယၢမ်းၸႂ်ႉတိုဝ်းလွၵ်းလၢႆးတၢင်းၼမ် **သိုပ်ႇလူ - [AI/Computer ႁဵတ်းၸိူင်ႉႁိုဝ်သေၸင်ႇပွင်ႇၵႂၢမ်းၵူၼ်းလႆႈ](https://www.noernova.com/blog/markov-chain-language-model)**
 
@@ -48,6 +47,7 @@ GPT-2 ၵေႃႈပဵၼ် transformer-base။
 > GPT-2 is a large transformer-based language model with 1.5 billion parameters, trained on a dataset of 8 million web pages. GPT-2 is trained with a simple objective: predict the next word, given all of the previous words within some text. The diversity of the dataset causes this simple goal to contain naturally occurring demonstrations of many tasks across diverse domains. GPT-2 is a direct scale-up of GPT, with more than 10X the parameters and trained on more than 10X the amount of data.
 
 ## ႁဵတ်းသင်လႄႈလႆႈ Fine-tune ဢဝ် model ပိူၼ်ႈ၊ သင်ဢမ်ႇ train တႄႇငဝ်ႈတေႃႇပၢႆဢဝ်ႁင်းၵူၺ်း?
+
 GPT-2, GPT-3 Large Language model ၸိူဝ်းၼႆႉ တေလႆႈၸႂ်ႉႁႅင်း Computer/GPU/TPU ၼမ်ႉတႄႉတႄႉဝႃႈဝႃႈသေၸင်ႇၵွႆႈ train ပဵၼ် AI model ဢွၵ်ႇမႃးလႆႈ။
 
 ![gpt-2 training time {caption: gpt-2 training time}](/assets/fine-tuning-gpt2-for-shan-language/Screenshot-2567-01-12-at-03.24.18.png)
@@ -62,6 +62,7 @@ GPT-2 ၸႂ်ႉၶၢဝ်းယၢမ်း GPU 100,000 ၸူဝ်ႈမ�
 ၵူၺ်းၵႃႈၼႂ်းဝၼ်းမိူဝ်ႈလဵဝ်ၼႆႉ LLM pre-trained model ဢွၵ်ႇမႃးဝႆႉတင်းၼမ် ဢၼ်ႁဝ်းၶိုၼ်းမႃး fine-tune လူၺ်ႈၵၢၼ်သႂ်ႇၶေႃႈမုၼ်းလိၵ်ႈလၢႆးႁဝ်း ႁႂ်ႈၸႂ်ႉၸွမ်း model မႂ်ႇ"ၸိူဝ်းၼႆႉလႆႈလႄႈ ဢၼ်ၵႃႈႁဝ်းႁဵတ်းလႆႈၵေႃႈ ပဵၼ်ၵၢၼ်ႁႃပၼ်ၶေႃႈမုၼ်းလိၵ်ႈၼမ်ၼမ်သေ fine-tune ၵႂႃႇၵေႃႈၸႂ်ႉလႆႈလီငၢမ်းယူႇၶႃႈ။
 
 ## Prerequisites
+
 - Python 3
 - [Hugging Face (Account & Token)](https://huggingface.co/join)
 - Transformers library ('transformers')
@@ -77,21 +78,25 @@ GPT-2 ၸႂ်ႉၶၢဝ်းယၢမ်း GPU 100,000 ၸူဝ်ႈမ�
 ***သိုဝ်ႉ Pro သေတႃႉၵေႃႈ လႆႈၸႂ်ႉ A100 ဢမ်ႇပူၼ်ႉသေ သၢမ်ပွၵ်ႈ lol***
 
 ## Step-by-Step
+
 ### Step 0. Mount google drive and login to huggingface hub
 
 ႁဝ်းတေ mount google drive တွၼ်ႈတႃႇၵဵပ်းသိမ်း data ဝႆႉ ၵွပ်ႈဝႃႈ google colab ၼႆႉပေႃး kill process ၵႂႃႇၼႆ ၶေႃႈမုၼ်းမၼ်းတေႁၢႆၵႂႃႇတင်းမူတ်း။
 
 လႄႈ login hugging face ဝႆႉတွၼ်ႈတႃႇၵဵပ်းသိမ်း model ဝႆႉၼိူဝ် hugging face။
+
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
 ```
+
 ```python
 from huggingface_hub import notebook_login
 notebook_login()
 ```
 
 Install dependency
+
 ```python
 # requirements GPU
 
@@ -101,6 +106,7 @@ Install dependency
 ```
 
 Optional for TPU ပေႃးဝႃႈၸႂ်ႉ TPU
+
 ```python
 # requirement TPU
 
@@ -111,10 +117,13 @@ Optional for TPU ပေႃးဝႃႈၸႂ်ႉ TPU
 ```
 
 Checking available CUDA
+
 ```python
 !nvidia-smi
 ```
+
 ### Step 1.  ၵဵပ်းႁွမ်ၶေႃႈမုၼ် Corpus လိၵ်ႈတႆး လႄႈ သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း Data Cleaning
+
 GPT-2 model တေၵတ်ႉၶႅၼ်ႇ ၶိုၵ်ႉၶႅမ်ႉၵႃႈႁိုဝ်ၼၼ်ႉ ဢိင်ၼိူဝ်ၶေႃႈမုၼ်းမီးၼမ်ၵႃႈႁိုဝ်ၼၼ်ႉယဝ်ႉၶႃႈ တူဝ် pre-trained ၶဝ်ၸႂ်ႉဝႆႉ text data 40GB (ၶေႃႈမုၼ်း website 8 လၢၼ်ႉ ၼႃႈ) ၼႆလႄႈ တွၼ်ႈတႃႇတေႁႂ်ႇမၼ်းႁူႉၸၵ်း လႄႈ generate လိၵ်ႈတႆးလႆႈၼၼ်ႉ ႁဝ်းၵေႃႈလူဝ်ႇပွၼ်ႈၶေႃႈမုၼ်းပၼ်မၼ်းႁႂ်ႈၼမ်တီႈသုတ်းတီႈႁႃလႆႈ။
 
 ႁဝ်းတေ focus ၼိူဝ် generative field ၼႆလႄႈ Text data ဢၼ်လူဝ်ႇၼၼ်ႉ ပဵၼ် text မဵဝ်းႁိုဝ်ၵေႃႈလႆႈ တႅမ်ႈလွင်ႈသင်ၵေႃႈလႆႈ ၵူၺ်းၵႃႈ တီႈဢေႇသုတ်း တူဝ်ၽိတ်းတူဝ်ထုၵ်ႇၸိူဝ်းၼၼ်ႉ လူဝ်ႇလႆႈၶျဵၵ်ႉသေမႄးပၼ်ႁႂ်ႈထုၵ်ႇမႅၼ်ႈၸွမ်းပိူင်လိၵ်ႈလၢႆး။
@@ -134,6 +143,7 @@ GPT-2 model တေၵတ်ႉၶႅၼ်ႇ ၶိုၵ်ႉၶႅမ်ႉ�
 ![data cleaning {caption: ၶၵ်ႉတွၼ်ႈၵၢၼ်သုၵ်ႈလၢင်ႉၶေႃႈမုၼ်း}](/assets/fine-tuning-gpt2-for-shan-language/Screenshot-2567-01-10-at-14.09.23.png)
 
 ***clean .csv data***
+
 ```python
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -201,6 +211,7 @@ print("Validation data saved to: ", valid_file)
 ```
 
 ### Step 2. Tokenization
+
 Tokenization ပဵၼ်ၶၵ်ႉတွၼ်ႈလမ်ႇလွင်ႈတွၼ်ႈတႃႇၵၢၼ် NLP ၵူႈဢၼ်ဢၼ် tokenization ပဵၼ်ၵၢၼ်တတ်းထႅဝ်လိၵ်ႈဢွၵ်ႇပဵၼ်ၶေႃႈ” ဢၼ်မီးတီႈပွင်ႇၵႂၢမ်းမၢႆ tokenizer မီးဝႆႉလၢႆမဵဝ်း မိူၼ်ၼင်ႇ Dictionary base tokenization (တတ်းၶေႃႈၵႂၢမ်းဢဝ်ၼႂ်း dictionary [တူၺ်း -> ShanNLP](https://github.com/NoerNova/ShanNLP))၊ Byte-Pair Encoding (BPE tokenization)၊ WordPiece tokenization၊ Unigram tokenization၊ Sentencepiece tokenizer ၸဵမ်ၸိူဝ်းၼႆႉ။
 ၼႂ်း GPT-2 တေၸႂ်ႉလွၵ်းလၢႆး BPE tokenization။
 
@@ -253,9 +264,10 @@ gpt2_tokenizer.push_to_hub("shannews_bpe_extened_tokenizer")
 
 ![tokenization {caption: BPE tokenization training}](/assets/fine-tuning-gpt2-for-shan-language/Screenshot-2567-01-12-at-02.53.04.png)
 
-
 ### Step 3. Data Preprocessing
+
 ဝၢႆးသေမီး Tokenizer ယဝ်ႉ ၵမ်းၼႆႉတေၸတ်းၵၢၼ် test, train data ႁဝ်း၊ တတ်းၶေႃႈၵႂၢမ်းလူၺ်ႈ tokenizer လႄႈၸတ်းၶေႃႈၵႂၢမ်းပဵၼ်ၵွၼ်ႈ” ဢၼ်ႁွင်ႉဝႃႈ chunks တွၼ်ႈတႃႇပွၼ်ႈသွၼ်ပၼ် machine။
+
 ```python
 import os
 import torch
@@ -281,10 +293,10 @@ train_file = "/content/drive/MyDrive/gpt2labs/shannews/train_data.txt"
 valid_file = "/content/drive/MyDrive/gpt2labs/shannews/valid_data.txt"
 
 with open(train_file, 'r', encoding='utf-8') as f:
-	train_data = f.readlines()
+    train_data = f.readlines()
 
 with open(valid_file, 'r', encoding='utf-8') as f:
-	valid_data = f.readlines()
+    valid_data = f.readlines()
 
 print(len(train_data), len(valid_data))
 
@@ -294,8 +306,8 @@ train_dataset = Dataset.from_dict({"text": train_data})
 valid_dataset = Dataset.from_dict({"text": valid_data})
 
 def preprocess_function(examples):
-	out = tokenizer(examples["text"])
-	return out
+    out = tokenizer(examples["text"])
+    return out
 
 # apply tokenization to dataset
 train_dataset = train_dataset.map(preprocess_function, batched=True, num_proc=4, remove_columns=train_dataset.column_names)
@@ -309,19 +321,19 @@ tokenized_datasets = DatasetDict({"train": train_dataset, "valid": valid_dataset
 block_size = 128
 
 def group_texts(examples):
-	concatenated_examples = {k: sum(examples[k], []) for k in
-	examples.keys()}
-	total_length = len(concatenated_examples[list(examples.keys())[0]])
+    concatenated_examples = {k: sum(examples[k], []) for k in
+    examples.keys()}
+    total_length = len(concatenated_examples[list(examples.keys())[0]])
 
   if total_length >= block_size:
-	  total_length = (total_length // block_size) * block_size
-	  result = {
-		  k: [t[i : i + block_size] for i in range(0, total_length,
-		  block_size)]
-		  for k, t in concatenated_examples.items()
-		}
-	result["labels"] = result["input_ids"].copy()
-	return result
+      total_length = (total_length // block_size) * block_size
+      result = {
+        k: [t[i : i + block_size] for i in range(0, total_length,
+          block_size)]
+          for k, t in concatenated_examples.items()
+        }
+    result["labels"] = result["input_ids"].copy()
+    return result
 
 # group tokenized train dataset
 lm_train_dataset = tokenized_datasets['train'].map(group_texts, batched=True, num_proc=4)
@@ -337,10 +349,11 @@ data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 
 out = data_collator([lm_dataset['train'][i] for i in range(5)])
 for key in out:
-	print(f"{key} shape: {out[key].shape}")
+    print(f"{key} shape: {out[key].shape}")
 ```
 
 ### Step 4. Model Setup and Optimizer
+
 တွၼ်ႈၼႆႉႁဝ်းတေ load gpt-2 model တွၼ်ႈတႃႇ fine-tune လႄႈ optimize ဢိတ်းဢွတ်း တွၼ်ႈတႃႇတေၸွႆႈႁႂ်ႈမၼ်း train ဝႆးၶိုၼ်ႈၵမ်ႈၽွင်ႈ (ပေႃးဝႃႈၽႂ်မီ GPU ၼမ်/ႁႅင်း ၼႆၶၢမ်ႈတွၼ်ႈၼႆႉၵေႃႈလႆႈ)
 
 ```python
@@ -353,9 +366,9 @@ model = GPT2LMHeadModel.from_pretrained("gpt2").to(device)
 
 # Resize the model's embeddings
 def find_multiple(n: int, k: int) -> int:
-	if n % k == 0:
-		return n
-	return n + k - (n % k)
+    if n % k == 0:
+        return n
+    return n + k - (n % k)
 
 new_embeddings_size = find_multiple(len(tokenizer), 64)
 model.resize_token_embeddings(new_embeddings_size)
@@ -363,14 +376,15 @@ model.resize_token_embeddings(new_embeddings_size)
 freeze_layers = False  
 
 if freeze_layers:
-	for name, param in model.named_parameters():
-		if 'transformer.wte' in name:
-			param.requires_grad = True
-		else:
-			param.requires_grad = False
+    for name, param in model.named_parameters():
+        if 'transformer.wte' in name:
+            param.requires_grad = True
+        else:
+            param.requires_grad = False
 ```
 
-### Step 5: Fine-tuning 
+### Step 5: Fine-tuning
+
 ၵမ်းလိုၼ်းသုတ်းၵေႃႈတေႁဵတ်း Fine-tuning gpt-2 model လူၺ်ႈ transformer။
 parameters ၸိူဝ်းၼႆႉ setup တႃႇ train ၼိူဝ် google colab pro A100 GPU 40GB of RAMS သင်ဝႃႈမီးႁႅင်း GPU လႄႈၶၢဝ်းယၢမ်းဢၼ်ၸႂ်ႉ GPU လႆႈႁိုင်ၼႆ ၸၢင်ႈလႅၵ်ႈ parameters မိူၼ်ၼင်ႇ batch_size ၶိုၼ်ႈထႅင်ႈလႆႈ 32, 64, 128 တေႁဵတ်းႁႂ်ႈ model ႁဵၼ်းႁူႉလႆႈလီၶိုၼ်ႈထႅင်ႈ ၵူၺ်းၵႃႈ ၵေႃႈတေၸႂ်ႉႁႅင်းလႄႈၶၢဝ်းယၢမ်း GPU ႁိုင်မႃးထႅင်ႈ။
 
@@ -378,31 +392,31 @@ parameters ၸိူဝ်းၼႆႉ setup တႃႇ train ၼိူဝ် goo
 from transformers import Trainer, TrainingArguments
 
 args = TrainingArguments(
-	output_dir="/content/shannews_gpt2/",
-	overwrite_output_dir=True,
-	per_device_train_batch_size=32,
-	per_device_eval_batch_size=32,
-	evaluation_strategy="steps",
-	eval_steps=500,
-	logging_steps=500,
-	gradient_accumulation_steps=4,
-	num_train_epochs=1,
-	weight_decay=0.1,
-	warmup_steps=500,
-	lr_scheduler_type="cosine",
-	learning_rate=5e-4,
-	save_steps=500,
-	push_to_hub=True,
-	save_total_limit=2
+    output_dir="/content/shannews_gpt2/",
+    overwrite_output_dir=True,
+    per_device_train_batch_size=32,
+    per_device_eval_batch_size=32,
+    evaluation_strategy="steps",
+    eval_steps=500,
+    logging_steps=500,
+    gradient_accumulation_steps=4,
+    num_train_epochs=1,
+    weight_decay=0.1,
+    warmup_steps=500,
+    lr_scheduler_type="cosine",
+    learning_rate=5e-4,
+    save_steps=500,
+    push_to_hub=True,
+    save_total_limit=2
 )
 
 # Initialize the Trainer
 trainer = Trainer(
-	model=model,
-	args=args,
-	data_collator=data_collator,
-	train_dataset=lm_train_dataset,
-	eval_dataset=lm_valid_dataset,
+    model=model,
+    args=args,
+    data_collator=data_collator,
+    train_dataset=lm_train_dataset,
+    eval_dataset=lm_valid_dataset,
 )
 
 # Start training
@@ -413,7 +427,9 @@ trainer.save_model("shannews_gpt2")
 ```
 
 ### Model Test (Top-P sampling)
+
 ဝၢႆးသေ train model ယဝ်ႉ ၸၢမ်းၸႂ်ႉ generate တူၺ်း။
+
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
@@ -427,21 +443,21 @@ text = "တပ်ႉသိုၵ်းၸိုင်ႈတႆး"
 # set top_k = 50 and set top_p = 0.95 and num_return_sequences = 3
 
 sample_outputs = model.generate(
-	**model_inputs,
-	max_new_tokens=40,
-	no_repeat_ngram_size=2,
-	do_sample=True,
-	top_k=50,
-	top_p=0.95,
-	num_return_sequences=3,
+    **model_inputs,
+    max_new_tokens=40,
+    no_repeat_ngram_size=2,
+    do_sample=True,
+    top_k=50,
+    top_p=0.95,
+    num_return_sequences=3,
 )
 
   
 print("Output:\n" + 100 * '-')
 
 for i, sample_output in enumerate(sample_outputs):
-	print("{}: {}".format(i, tokenizer.decode(sample_output,
-	skip_special_tokens=True)))
+    print("{}: {}".format(i, tokenizer.decode(sample_output,
+    skip_special_tokens=True)))
 
 # Output: ---------------------------------------------------------------------------------------------------- 
 # 0: တပ်ႉသိုၵ်းၸိုင်ႈတႆး (ဝၼ်းပိူင်မၢႆမီႈမီး တူၵ်ႇတႅၵ်ႈ (မႄႈၸႄႈဝဵင်းၵျွၵ်ႉမႄးၼၼ်ႉ တေ 
@@ -450,7 +466,9 @@ for i, sample_output in enumerate(sample_outputs):
 ```
 
 ## Conclusion
+
 ဝၢႆးသေလဵပ်ႈႁဵၼ်းလႄႈၸၢမ်း trained, test model ယဝ်ႉၼၼ်ႉ တေႁၼ်ဝႃႈ မၼ်း generate ဢွၵ်ႇပၼ်လိၵ်ႈတႆးလႆႈပဵၼ်ၶေႃႈယူႇသေတႃႉ လွင်ႈတီႈပွင်ႇၵႂၢမ်းမၢႆထႅဝ်လိၵ်ႈ ယင်းပႆႇၵဵဝ်ႇၶွင်ႈၵၼ်လီ ဢၼ်ၼႆႉပဵၼ်လႆႈလၢႆတီႈ
+
 1. ၶေႃႈမုၼ်းၸႂ်ႉ train ၼၼ်ႉၵမ်ႈၼမ်ပဵၼ်ၶေႃႈမုၼ်းၵဵဝ်ႇၵပ်းလွင်ႈၵၢၼ်သိုၵ်းသူဝ်၊ ၵၢၼ်လုၵ်ႉၽိုၼ်ႉ၊ ၶၢဝ်ႇငၢဝ်းငဝ်းလၢႆးဢမ်ႇလီၼႂ်းမိူင်းတႆး ၸိူဝ်းၼႆႉလၢႆလၢႆလႄႈ text ဢၼ် generate ဢွၵ်ႇမႃးၵေႃႈ ပဵၼ်ထွႆႈၵႂၢမ်းၸိူဝ်းၼၼ်ႉလၢႆလၢႆယဝ်ႉ။
 2. တၢင်းၼမ်ၶေႃႈမုၼ်းဢၼ်ၸႂ်ႉ train တင်းမူၼ်းၼၼ်ႉ ဝၢႆးသေ cleaned ယဝ်ႉမီ 136.4MB ၵူၺ်း လႆႈဝႃႈတိုၵ်းမီးဢေႇတႄႉတႄႉ ပေႃးႁႂ်ႈလီလူဝ်ႇမီးပဵၼ် GB ၶိုၼ်ႈၼိူဝ်။
 3. ႁႅင်း GPU ဢၼ်ၸႂ်ႉလႆႈၼၼ်ႉ မီးၶၢဝ်းယၢမ်းပၼ်ၸႂ်ႉဢေႇၼႃႇလႄႈ parameters ဢၼ်ၸႂ်ႉသွၼ် model လႆႈလူတ်းယွမ်းဝႆႉတင်းၼမ်ႉ ႁဵတ်းႁႂ်ႈ model ဢမ်ႇလႆႈႁဵၼ်းႁူဝ်ယွႆႈၶႅမ်ႉလီ
@@ -458,11 +476,13 @@ for i, sample_output in enumerate(sample_outputs):
 မိူဝ်းၼႃႈၶၢဝ်းယၢဝ်း တႃႇတေသိုပ်ႈႁဵတ်းႁႂ်ႈၸႂ်ႉ AI model မိူၼ်ၼင်ႇ LLM, Generative AI တွၼ်ႈတႃႇလိၵ်ႈတႆးလႆႈလီလီၼၼ်ႉယင်းလူဝ်ႇတၢင်းၸွႆႈထႅမ်ႁူမ်ႈမိုဝ်းၵၼ်လၢႆပႃႈလၢႆၾၢႆႇမိူၼ်ၼင်ႇ
 ***ႁႅင်းၶေႃႈမုၼ်းလိၵ်ႈတႆး*** ***ႁႅင်းငိုၼ်းတွင်းတႃႇၸႂ်ႉ*** train ၸိူဝ်းၼႆႉယူႇၶႃႈ။
 
-#### **Link**
+### Link
+
 - [shn-gpt2](https://huggingface.co/NorHsangPha/shn_gpt2)
 - [Fine-tune a pretrained model - huggingface docs](https://huggingface.co/docs/transformers/v4.18.0/en/training)
 
-#### **Source Code**
+#### Source Code
+
 1. [Shan GPT-2 Fine-tuning Google Colab](https://colab.research.google.com/drive/1DPJp0WKY-MVWznJTIOWPgzFaUjxfa_zM?usp=sharing)
 2. [BPE Tokenizer training](https://colab.research.google.com/drive/1of3hghxLQ2UtwFfRU6AAZKrGNJlOAu3D?usp=sharing)
 3. [BPE extended tokenizer training](https://colab.research.google.com/drive/1yKgJLT0EP1WhjvHqA_9dMLPqg_ERzF6N)
@@ -470,5 +490,6 @@ for i, sample_output in enumerate(sample_outputs):
 5. [Shan tokenizer](https://colab.research.google.com/drive/1U5OuaF8sM72vZszGyMqOo55GDzGnR1Gp?usp=sharing)
 6. [Shan Google Sentencepiece tokenizer](https://colab.research.google.com/drive/1UczcN4KUD0USL9iSLIombIF-eem0Ux61#scrollTo=XiX6zV4-H15X)
 
-#### **Dataset**
+#### Dataset
+
 - [Shan Data Collections](https://github.com/NoerNova/shan-data-collection)
