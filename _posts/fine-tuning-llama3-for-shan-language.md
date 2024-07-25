@@ -20,8 +20,6 @@ description: ၸၢမ်းႁဵတ်းႁႂ်ႈ llama3 ပွင်ႇ�
 
 ## Introduction
 
-Thank to AI-Commandos [LLaMa2lang convenience scripts](https://github.com/AI-Commandos/LLaMa2lang) to finetune (chat-)LLaMa3
-
 ပွင်ႈၵႂၢမ်းႁူဝ်ၼႆႉ ပဵၼ်မၢႆတႃႇတွင်း လွင်ႈလဵပ်ႈႁဵၼ်းတူၺ်း တႃႇတေႁဵတ်းႁႂ်ႈ LLM (Large Language Model) မိူၼ်ၼင်ႇ Llama3 ႁူႉပွင်ႇၸႂ် လႄႈတွပ်ႇၶေႃႈထၢမ်လိၵ်ႈတႆး ၵႂၢမ်းတႆးလႆႈ။
 
 တွၼ်ႈတႃႇလိၵ်ႈတႆး ၵႂၢမ်းတႆး ယင်းတိုၵ်ႉမီးလွင်ႈၶဵင်ႇတႃႉ လႄႈလွင်ႈလူဝ်ႇလဵပ်ႈႁဵၼ်းထႅင်ႈတင်းၼမ် တႃႇတေၶဵၼ်ႇၽိုတ်ႉဢီး ႁဵတ်းႁႂ်ႈလိၵ်ႈတႆး ၵႂၢမ်းတႆးႁဝ်းၸႂ်ႉလႆႈလီၼႂ်းၵၢပ်ႈပၢၼ် AI ၼႆလႄႈ ၼႆႉပဵၼ်ပွင်ႈၵႂၢမ်းမၢႆတွင်း (Study Note) တႃႇလဵပ်ႈႁဵၼ်းတူၺ်းပွတ်းဢွၼ်ႇတွၼ်ႈၼိုင်ႈၵူၺ်းၶႃႈ။
@@ -54,9 +52,9 @@ Fine-Tune ၼၼ်ႉပဵၼ်လွၵ်းလၢႆးၼိုင်ႈ 
 
 ## Datasets and Fine-tune processes
 
-> Code လႄႈလွၵ်းလၢႆး fine-tune တွၼ်ႈၼႆႉၸႂ်ႉတိုဝ်း [AI-Commandos/LLaMa2lang Convenience scripts](https://github.com/AI-Commandos/LLaMa2lang) ဢၼ်တူင်ႇဝူင်းၸွႆႈၵၼ်ပိုၼ်ၽႄဝႆႉ ပိူဝ်ႈတႃႇ Optimize လႄႈ လႆႈၼမ်ႉတွၼ်းၼႂ်းမေႃႇတႄႇလ်သုင်သုတ်း။
->
-> Code ဢၼ်ႁၢင်ႈႁႅၼ်းဝႆႉတွၼ်ႈတႃႇၽႃႇသႃႇတႆး [https://github.com/NoerNova/LLaMa2lang.git](https://github.com/NoerNova/LLaMa2lang.git)
+**Code လႄႈလွၵ်းလၢႆး fine-tune တွၼ်ႈၼႆႉၸႂ်ႉတိုဝ်း [AI-Commandos/LLaMa2lang Convenience scripts](https://github.com/AI-Commandos/LLaMa2lang) ဢၼ်တူင်ႇဝူင်းၸွႆႈၵၼ်ပိုၼ်ၽႄဝႆႉ ပိူဝ်ႈတႃႇ Optimized လႄႈ လႆႈၼမ်ႉတွၼ်းၼႂ်းမေႃႇတႄႇလ်သုင်သုတ်း။**
+
+**Code ဢၼ်ႁၢင်ႈႁႅၼ်းဝႆႉတွၼ်ႈတႃႇၽႃႇသႃႇတႆး [https://github.com/NoerNova/LLaMa2lang.git](https://github.com/NoerNova/LLaMa2lang.git)**
 
 ၶေႃႈမုၼ်းဢၼ်တႃႇတေၸႂ်ႉၼႂ်းၶၵ်ႉတွၼ်ႈၵၢၼ် fine-tune Llama ဢမ်ႇၼၼ်တီႈၼႆႈပဵၼ် Chat-Llama ၼၼ်ႉ ႁဝ်းလူဝ်ႇၶေႃႈမုၼ်း ထၢမ်-တွပ်ႇ ပိူဝ်ႈတႃႇႁႂ်ႈမၼ်းႁဵၼ်းႁူႉလႆႈဝႃႈ ပေႃးမီးၶေႃႈထၢမ် မၼ်းတေလႆႈတွပ်ႇၸိူင်ႉႁိုဝ်။
 
